@@ -1,17 +1,15 @@
 package com.github.gitreport.gui.language;
 
-import org.apache.log4j.Logger;
-
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Locale;
 import java.util.MissingResourceException;
+import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 import java.util.prefs.Preferences;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-import java.util.PropertyResourceBundle;
 
 /**
  * Takes care of HonModMan localization.
@@ -21,13 +19,13 @@ import java.util.PropertyResourceBundle;
  */
 public class L10n {
     // This is where property files with translations are
-
     private static final String RESOURCE_NAME = "modmanager.gui.l10n.HonModMan";
     private static final String DEFAULT_LOCALE = "en";
     private static ResourceBundle resource;
     private static ResourceBundle defaultResource;
     private static Preferences prefs;
     private static Logger logger = Logger.getLogger(L10n.class.getPackage().getName());
+
     private static Locale currentLocale;
     private static String languageLocale;
 
