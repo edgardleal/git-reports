@@ -10,7 +10,7 @@
 	<name>Git Reports</name>
 
 	<issueManagement>
-		<url>https://github.com/kevinsawicki/git-reports/issues</url>
+		<url>https://github.com/edgardleal/git-reports/issues</url>
 		<system>GitHub Issues</system>
 	</issueManagement>
 
@@ -23,17 +23,17 @@
 	</licenses>
 
 	<scm>
-		<url>https://github.com/kevinsawicki/git-reports</url>
-		<connection>scm:git:git://github.com/kevinsawicki/git-reports.git</connection>
-		<developerConnection>scm:git:git@github.com:kevinsawicki/git-reports.git</developerConnection>
+		<url>https://github.com/edgardleal/git-reports.git</url>
+		<connection>scm:git:git://github.com/edgardleal/git-reports.git</connection>
+		<developerConnection>scm:git:git@github.com:edgardleal/git-reports.git</developerConnection>
 	</scm>
 
 	<developers>
 		<developer>
-			<email>kevinsawicki@gmail.com</email>
-			<name>Kevin Sawicki</name>
-			<url>https://github.com/kevinsawicki</url>
-			<id>kevinsawicki</id>
+			<email>edgardleal@gmail.com</email>
+			<name>Edgard Leal</name>
+			<url>https://github.com/edgardleal</url>
+			<id>edgardleal</id>
 		</developer>
 	</developers>
 
@@ -197,4 +197,5 @@
 			<version>2.3.18</version>
 		</dependency>
 	</dependencies>
+	<description>Report maker from git log</description>
 </project>
