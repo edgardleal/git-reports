@@ -1,4 +1,10 @@
 target/
 .netrc
 *.*~
-.metadata/
+.metadata
+lib/*.js
+lib/*.css
+lib/*.html
+lib/.classpath
+*.prefs
+*.class

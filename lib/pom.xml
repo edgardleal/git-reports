@@ -5,7 +5,7 @@
 	<groupId>com.github.kevinsawicki</groupId>
 	<artifactId>git-reports</artifactId>
 	<version>0.1-SNAPSHOT</version>
-	<inceptionYear>2011</inceptionYear>
+	<inceptionYear>2013</inceptionYear>
 
 	<name>Git Reports</name>
 
@@ -26,6 +26,7 @@
 		<url>https://github.com/edgardleal/git-reports.git</url>
 		<connection>scm:git:git://github.com/edgardleal/git-reports.git</connection>
 		<developerConnection>scm:git:git@github.com:edgardleal/git-reports.git</developerConnection>
+		<tag>gitreport</tag>
 	</scm>
 
 	<developers>
@@ -198,14 +199,22 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
-			<version>2.0-beta4</version>
+			<artifactId>log4j-jcl</artifactId>
+			<version>2.0-alpha2</version>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>2.0-beta4</version>
+			<groupId>ant</groupId>
+			<artifactId>ant-commons-logging</artifactId>
+			<version>1.6.5</version>
 		</dependency>
 	</dependencies>
 	<description>Report maker from git log</description>
+	<ciManagement>
+		<system>git</system>
+		<url>https://github.com/edgardleal/git-reports.git</url>
+	</ciManagement>
+	<organization>
+		<name>Edgard Leal</name>
+		<url>http://edgardleal.blogspot.com.br</url>
+	</organization>
 </project>
