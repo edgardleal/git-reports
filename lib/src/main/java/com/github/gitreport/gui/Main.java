@@ -4,15 +4,14 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.InputStream;
-import java.net.URL;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
@@ -20,12 +19,13 @@ import org.eclipse.jgit.storage.file.FileRepository;
 import com.github.gitreport.GitHubLinker;
 import com.github.gitreport.Templates;
 import com.github.gitreport.TotalHistoryReport;
+import com.github.gitreport.data.Setup;
 import com.github.gitreport.gui.language.L10n;
 
 import freemarker.template.Template;
 
 /**
- *
+ * 
  * @author Edgard Leal
  * @since 20-02-2013
  */
@@ -63,7 +63,8 @@ public class Main extends JFrame implements ActionListener {
 			new TextFieldLabel(getPnlProjectFind(),
 					L10n.getString("label.giturl"));
 			new TextFieldLabel(getPnlProjectFind(),
-					L10n.getString("label.report.target"));
+					L10n.getString("label.report.target")).setText(new File(
+					String.format(".%sreports", File.separator)).toString());
 			new TextFieldLabel(getPnlProjectFind(),
 					L10n.getString("label.report.branch"));
 
@@ -72,6 +73,8 @@ public class Main extends JFrame implements ActionListener {
 
 			this.setTitle(L10n.getString("app.title"));
 			this.setVisible(true);
+			new Setup().checkFolders();
+			new Setup().checkFiles();
 		} catch (Exception ex) {
 			System.err.println("Could not start the program");
 			ex.printStackTrace();
@@ -150,42 +153,22 @@ public class Main extends JFrame implements ActionListener {
 			report.setLinker(linker);
 
 			Repository repo = new FileRepository(getProjectFolder());
-			report.run(repo,getProjectBranch());
+			report.run(repo, getProjectBranch());
 
 			String projectReleaseString = "release";
 			String projectTotalString = "total-history";
 			Template tpl = Templates.getTemplate(projectTotalString);
 			tpl.setOutputEncoding("UTF-8");
-			File out = new File(projectName + ".html");
+			
+			File out = new File(String.format("reports%1$s%2$s.html", File.separator, projectName ));
 			FileWriter writer = new FileWriter(out);
 			tpl.process(report, writer);
-			checkFiles();
 			Desktop.getDesktop().browse(out.toURI());
+			System.gc();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-	}
-
-	private void checkFiles(){
-		// TODO: implement to others files
-		File coreCss = new File("core.css");
-		if(!coreCss.exists())
-			saveURLtoFile(this.getClass().getResourceAsStream("core.css"), coreCss);
-		File jquery = new File("jquery.js");
-		if(!jquery.exists())
-			saveURLtoFile(this.getClass().getResourceAsStream("jquery.js"), coreCss);
-	}
-
-	private void saveURLtoFile(InputStream stream, File file){
-		try {
-			int b = 0;
-			FileOutputStream out = new FileOutputStream(file);
-			while((b = stream.read())>0)
-				out.write(b);
-			out.flush();
-			out.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR",
+					JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

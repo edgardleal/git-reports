@@ -8,3 +8,4 @@ lib/*.html
 lib/.classpath
 *.prefs
 *.class
+/lib/reports/*
