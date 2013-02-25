@@ -4,6 +4,9 @@
 
 ### Release Report
 
+
+* [Download executable jar](https://sourceforge.net/projects/git-reports/)
+
 The following snippet creates a report between two releases (1.1 & 1.2)
 
 ```java
