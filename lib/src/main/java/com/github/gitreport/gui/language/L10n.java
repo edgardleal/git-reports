@@ -25,7 +25,7 @@ import com.github.gitreport.data.Constant;
 public class L10n {
 	// This is where property files with translations are
 	private static final String RESOURCE_NAME = "Language";
-	private static final String DEFAULT_LOCALE = "pt_BR";
+	private static final String DEFAULT_LOCALE = "en";
 	private static ResourceBundle resource;
 	private static ResourceBundle defaultResource;
 	private static Preferences prefs;

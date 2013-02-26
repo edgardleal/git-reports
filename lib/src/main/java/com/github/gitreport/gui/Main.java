@@ -4,14 +4,13 @@ import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.InputStream;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
@@ -19,8 +18,12 @@ import org.eclipse.jgit.storage.file.FileRepository;
 import com.github.gitreport.GitHubLinker;
 import com.github.gitreport.Templates;
 import com.github.gitreport.TotalHistoryReport;
+import com.github.gitreport.data.RepositoryDTO;
+import com.github.gitreport.data.RepositoryModel;
 import com.github.gitreport.data.Setup;
 import com.github.gitreport.gui.language.L10n;
+import com.github.gitreport.util.RegexUtil;
+import com.github.gitreport.util.Str;
 
 import freemarker.template.Template;
 
@@ -35,6 +38,7 @@ public class Main extends JFrame implements ActionListener {
 	private JFileChooser fileDialog = null;
 	private JButton btnGenerateReport = null;
 	private Panel pnlProjectFind = null;
+	private RepositoryDTO dto = new RepositoryDTO();
 
 	public Main() {
 		try {
@@ -43,8 +47,12 @@ public class Main extends JFrame implements ActionListener {
 			ex.printStackTrace();
 
 		}
-
 		init();
+	}
+
+	private void loadFirst() {
+		if (dto.getList().size() > 0)
+			assignScreen(dto.getList().get(dto.getList().size()-1));
 	}
 
 	private void init() {
@@ -52,16 +60,18 @@ public class Main extends JFrame implements ActionListener {
 			this.setSize(400, 400);
 			this.setLocationRelativeTo(null);
 			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			new TextFieldLabel(getPnlProjectFind(),
-					L10n.getString("label.project.folder")).addButton(
-					L10n.getString("button.find.dir"))
+			TextFieldLabel projectFolder = new TextFieldLabel(
+					getPnlProjectFind(), L10n.getString("label.project.folder"));
+			projectFolder.addButton(L10n.getString("button.find.dir"))
 					.setInnerMethod(
 							this.getClass().getMethod("onButtonFindClick",
 									new Class[0]), this);
+			projectFolder.setRegex(RegexUtil.PATH_PATTERN);
 			new TextFieldLabel(getPnlProjectFind(),
-					L10n.getString(L10n.LABEL_PROJECT_TITLE));
+					L10n.getString(L10n.LABEL_PROJECT_TITLE)).setRegex(".+");
 			new TextFieldLabel(getPnlProjectFind(),
-					L10n.getString("label.giturl"));
+					L10n.getString(L10n.LABEL_GITURL))
+					.setRegex(RegexUtil.URL_PATTERN);
 			new TextFieldLabel(getPnlProjectFind(),
 					L10n.getString("label.report.target")).setText(new File(
 					String.format(".%sreports", File.separator)).toString());
@@ -75,11 +85,35 @@ public class Main extends JFrame implements ActionListener {
 			this.setVisible(true);
 			new Setup().checkFolders();
 			new Setup().checkFiles();
+			loadFirst();
 		} catch (Exception ex) {
 			System.err.println("Could not start the program");
 			ex.printStackTrace();
 			System.exit(ERROR);
 		}
+	}
+
+	private RepositoryModel assignModel(RepositoryModel model) {
+		model.setTitle(getProjectTitle());
+		model.setFolder(getProjectFolder());
+		model.setReportTarget(Str.EMPTY);
+		model.setUrl(getProjectUrl());
+		model.getBranchs().add(getProjectBranch());
+		return model;
+	}
+
+	private void assignScreen(RepositoryModel model) {
+		getPnlProjectFind().getTextFieldByName(L10n.getString(L10n.LABEL_PROJECT_TITLE))
+				.setText(model.getTitle());
+		getPnlProjectFind().getTextFieldByName(L10n.getString(L10n.LABEL_PROJECT_FOLDER))
+				.setText(model.getFolder());
+		getPnlProjectFind().getTextFieldByName(L10n.getString(L10n.LABEL_REPORT_TARGET))
+				.setText(model.getReportTarget());
+		getPnlProjectFind().getTextFieldByName(L10n.getString(L10n.LABEL_GITURL)).setText(
+				model.getUrl());
+		getPnlProjectFind().getTextFieldByName(L10n.getString(L10n.LABEL_REPORT_BRANCH)).setText(
+				model.getBranchs().size() > 0 ? model.getBranchs().first()
+						: Str.EMPTY);
 	}
 
 	public void onButtonFindClick() {
@@ -93,6 +127,12 @@ public class Main extends JFrame implements ActionListener {
 	}
 
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel(UIManager.getInstalledLookAndFeels()[1]
+					.getClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		new Main();
 	}
 
@@ -159,11 +199,13 @@ public class Main extends JFrame implements ActionListener {
 			String projectTotalString = "total-history";
 			Template tpl = Templates.getTemplate(projectTotalString);
 			tpl.setOutputEncoding("UTF-8");
-			
-			File out = new File(String.format("reports%1$s%2$s.html", File.separator, projectName ));
+
+			File out = new File(String.format("reports%1$s%2$s.html",
+					File.separator, projectName));
 			FileWriter writer = new FileWriter(out);
 			tpl.process(report, writer);
 			Desktop.getDesktop().browse(out.toURI());
+			dto.insert(assignModel(new RepositoryModel()));
 			System.gc();
 		} catch (Exception e) {
 			e.printStackTrace();

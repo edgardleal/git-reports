@@ -1,22 +1,28 @@
 package com.github.gitreport.gui;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.github.gitreport.util.Str;
 
-public class TextFieldLabel extends JTextField implements ActionListener{
+public class TextFieldLabel extends JTextField implements ActionListener,
+		KeyListener {
 
 	/**
 	 * represents a internal increment for automatic position of all
 	 * TextFieldLabel created
 	 */
 	private static int yIncrement = 30;
-
+	private String regex = null;
+	private final Color validColor = Color.GREEN;
+	private final Color invalidColor = Color.RED;
 	/**
 	 *
 	 */
@@ -31,9 +37,24 @@ public class TextFieldLabel extends JTextField implements ActionListener{
 	private int xIncrement = SPACE;
 	private JLabel internalLabel = null;
 	private Container parentContaier = null;
+	private boolean valid;
 
 	public TextFieldLabel() {
+		super();
+		init();
+	}
 
+	private void init() {
+		this.addKeyListener(this);
+		this.addActionListener(this);
+	}
+
+	public String getRegex() {
+		return regex;
+	}
+
+	public void setRegex(String regex) {
+		this.regex = regex;
 	}
 
 	public TextFieldLabel(Container c, String name) {
@@ -44,12 +65,13 @@ public class TextFieldLabel extends JTextField implements ActionListener{
 		c.add(getLabel());
 		yIncrement += 50;
 		parentContaier = c;
+		init();
 	}
 
 	/**
 	 * Add a button beside the JTextField and return this button for to be
 	 * configurated
-	 *
+	 * 
 	 * @return
 	 */
 	public Button addButton(String label) {
@@ -71,17 +93,51 @@ public class TextFieldLabel extends JTextField implements ActionListener{
 		if (index > 0)
 			result.setMnemonic(label.charAt(index));
 
-		result.setBounds(this.getLocation().x + this.getSize().width + xIncrement,
-				this.getLocation().y, label.length() * 10, this.getSize().height);
+		result.setBounds(this.getLocation().x + this.getSize().width
+				+ xIncrement, this.getLocation().y, label.length() * 10,
+				this.getSize().height);
 		xIncrement += result.getSize().width + SPACE;
 		result.setName(label);
-		if(parentContaier!=null)
+		if (parentContaier != null)
 			parentContaier.add(result);
 		return result;
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 
+	}
+
+	public void keyPressed(KeyEvent key) {
+		if (getRegex() == null)
+			return;
+		int code = key.getKeyCode();
+		String text = this.getText();
+		if (code == 0 || code == 8 || code == 27 || code == 127 || code == 37
+				|| code == 38 || code == 39 || code == 40 || code == 117
+				|| code == 17)
+			;
+		else
+			text = this.getText() + key.getKeyChar();
+		if (text.matches(getRegex()))
+			this.setBackground(validColor);
+		else
+			this.setBackground(invalidColor);
+	}
+
+	public void keyReleased(KeyEvent arg0) {
+
+	}
+
+	public void keyTyped(KeyEvent key) {
+		
+	}
+
+	public boolean isValid() {
+		if (getRegex() == null)
+			return true;
+
+		valid = this.getText().matches(getRegex());
+
+		return valid;
 	}
 }
