@@ -16,6 +16,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 
 import com.github.gitreport.GitHubLinker;
+import com.github.gitreport.ReleaseReport;
 import com.github.gitreport.Templates;
 import com.github.gitreport.TotalHistoryReport;
 import com.github.gitreport.data.RepositoryDTO;
@@ -184,7 +185,9 @@ public class Main extends JFrame implements ActionListener {
 	public void generateReport() {
 		try {
 			String projectName = getProjectTitle();
-			TotalHistoryReport report = new TotalHistoryReport();
+			//TotalHistoryReport report = new TotalHistoryReport();
+			ReleaseReport report = new ReleaseReport();
+			
 			report.setProjectName(projectName);
 			report.setProjectVersion(getProjectBranch());
 
@@ -193,17 +196,17 @@ public class Main extends JFrame implements ActionListener {
 			report.setLinker(linker);
 
 			Repository repo = new FileRepository(getProjectFolder());
-			report.run(repo, getProjectBranch());
+			report.run(repo, "723ccd17df04f2f97986d871ff7a0ad0c463047b","a5781714d530e8b26e6eb17225963dc6cc675d3d");
 
 			String projectReleaseString = "release";
 			String projectTotalString = "total-history";
-			Template tpl = Templates.getTemplate(projectTotalString);
-			tpl.setOutputEncoding("UTF-8");
+			Template template = Templates.getTemplate(projectReleaseString);
+			template.setOutputEncoding("UTF-8");
 
 			File out = new File(String.format("reports%1$s%2$s.html",
 					File.separator, projectName));
 			FileWriter writer = new FileWriter(out);
-			tpl.process(report, writer);
+			template.process(report, writer);
 			Desktop.getDesktop().browse(out.toURI());
 			dto.insert(assignModel(new RepositoryModel()));
 			System.gc();

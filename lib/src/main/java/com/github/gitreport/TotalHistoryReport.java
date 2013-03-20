@@ -302,7 +302,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get dupe count for commit
-	 *
+	 * 
 	 * @param commit
 	 * @return dupe count
 	 */
@@ -405,7 +405,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get number of commits authored by name
-	 *
+	 * 
 	 * @param name
 	 * @return commit count
 	 */
@@ -424,7 +424,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get line impact of author
-	 *
+	 * 
 	 * @param name
 	 * @return stats
 	 */
@@ -451,7 +451,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get file impact of author
-	 *
+	 * 
 	 * @param name
 	 * @return stats
 	 */
@@ -478,7 +478,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get number of commits committed by name
-	 *
+	 * 
 	 * @param name
 	 * @return commit count
 	 */
@@ -497,7 +497,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get name for id
-	 *
+	 * 
 	 * @param id
 	 * @return name
 	 */
@@ -512,7 +512,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get abbreviated name for id
-	 *
+	 * 
 	 * @param id
 	 * @return short name
 	 */
@@ -528,7 +528,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Get compare link
-	 *
+	 * 
 	 * @param label
 	 * @return commits
 	 */
@@ -536,14 +536,14 @@ public class TotalHistoryReport {
 		if (linker != null) {
 			String url = linker.getCompareUrl(end.name(), start.name());
 			if (url != null)
-				return "<a href=\"" + url + "\">" + label + "</a>";
+				return String.format("<a href=\"%s\">%s</a>", url, label);
 		}
 		return label;
 	}
 
 	/**
 	 * Parse commit
-	 *
+	 * 
 	 * @param id
 	 * @return commit
 	 */
@@ -590,7 +590,7 @@ public class TotalHistoryReport {
 
 	/**
 	 * Generate report for repository
-	 *
+	 * 
 	 * @param repository
 	 * @param start
 	 * @throws IOException

@@ -106,15 +106,15 @@
 				<h3>Most Lines Changed</h3>
 				<ol>
 					<#list mostLines as impact>
-					<li><code>${getCommitShortName(impact.commit)}</code> by
-						${parseCommit(impact.commit).authorIdent.name}&nbsp;&nbsp;<span
-						class="label success">+${impact.add}</span> <span
-						class="label warning">${impact.edit}</span> <span
-						class="label important">-${impact.delete}</span></li> </#list>
+					<li><code>${getCommitShortName(impact.commit)}</code>
+						<span class="label"> ${parseCommit(impact.commit).authorIdent.name}&nbsp;&nbsp;</span>
+						<span class="label success">+${impact.add}</span> 
+						<span class="label warning">${impact.edit}</span> 
+						<span class="label important">-${impact.delete}</span></li> </#list>
 				</ol>
 			</div>
 			<div class="span8">
-				<h3>Most Files Changed</h3>
+				<h3>Arquivos com mais modificações</h3>
 				<ol>
 					<#list mostFiles as impact>
 					<li><code>${getCommitShortName(impact.commit)}</code> by

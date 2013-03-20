@@ -1,0 +1,252 @@
+commit 723ccd17df04f2f97986d871ff7a0ad0c463047b
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Mon Feb 25 22:43:23 2013 -0300
+
+    Apply look and fell
+
+commit 5abd2be7e9cc2b844457ff18faeea95579eefa19
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Sun Feb 24 22:51:54 2013 -0300
+
+    Added link to download into readme.md
+
+commit d3750f436030d27de01552defb9ff2b4a8c71047
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Sun Feb 24 22:45:35 2013 -0300
+
+    Closes #3, closes #4
+
+commit 0668f624e80762ec9deaf4800c6f92085aac0e70
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Sun Feb 24 22:34:15 2013 -0300
+
+    Gui read and runing
+
+commit 22ad1c4f206a8fbb8be0266522e3168b3dfb7e93
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Sun Feb 24 00:24:49 2013 -0300
+
+    Initial implementation of gui
+
+commit 5a4845b19bf98858c3dd0053f5c0016d8dfc6a1d
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Wed Feb 20 23:05:50 2013 -0300
+
+    first gui class
+
+commit 41227f865e8013b19a10fb65f58d1fd81ee6f6ca
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Wed Feb 20 22:49:08 2013 -0300
+
+    start multi language
+
+commit 8af0940aa9213fa6b618c272c85f2ed73c85085f
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Wed Feb 20 22:37:52 2013 -0300
+
+    ...
+
+commit bc615e450d7397f5c45006abb74680dc9066b7f4
+Author: edgardleal <edgardleal@gmail.com>
+Date:   Wed Feb 20 22:32:31 2013 -0300
+
+    Refactor
+
+commit daf25b25cf143c8cc17354788fe10124268ff4b4
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Mar 19 15:56:50 2012 -0700
+
+    Upgrade to gitective 0.9.8 and JGit 1.3
+
+commit ef63d1d3277c3dc3d483ac130e8f5db8eb5d8b09
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Fri Feb 17 08:02:14 2012 -0800
+
+    Add links to EGit/JGit 1.3 reports
+
+commit b513c509eb4aa82c70b539aea6f1d62b9dce42e5
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Sat Feb 11 08:16:26 2012 -0800
+
+    Update node report link text
+
+commit 1a2160f415a0772e004223efc4bcf2606ddf07d9
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Sat Feb 11 08:10:55 2012 -0800
+
+    Add examples for each report type
+
+commit 71677e04efb0fa50058037d0335b052dd893b400
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Sat Feb 11 08:09:51 2012 -0800
+
+    Add total history reporty example
+
+commit 50f566ef6f234d8771b9345fb44b2c5ae59776b9
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Feb 1 08:52:52 2012 -0800
+
+    Upgrade gitective dependency to 0.9.7
+
+commit 67b167c3ef6830bb7c670df8a69ecf90f49c58f1
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Feb 1 08:39:04 2012 -0800
+
+    Use rename detection in ReleaseReport
+    
+    A new column is added listed the files renamed/moved and summary
+    count has been added to the Quick Facts section
+    
+    This fixes issue #1
+
+commit 1d915a7e6dccd758b765cfabca9f87b8a9c88b37
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 31 15:45:13 2012 -0800
+
+    Parse commit to determine author of impact
+    
+    CommitImpact no longer provides the entire RevCommit and instead
+    provides only the SHA-1 from the commit
+
+commit aeaacff3acacf2b9e95c9233becfb70d876a58e3
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Thu Jan 26 08:42:00 2012 -0800
+
+    Label tweaks for total history report
+
+commit 29b70e0468a3de2a7ff0c44e0b4136996806f3f9
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Jan 25 11:00:23 2012 -0800
+
+    Update POM dependencies
+
+commit 4a48ac301635d87e47e2310e192ecaadc7b6d3c5
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 24 18:46:05 2012 -0800
+
+    Add cumulative totals for each author's line and file impact
+
+commit edfeedd970cb284e6429aa34839333524f0e27fd
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 24 14:46:14 2012 -0800
+
+    Include merges in total history report
+
+commit 19833b28f701b2ff1fb2091cd100a1cfe3fc0efb
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 24 14:46:00 2012 -0800
+
+    Add save action to remove trailing whitespace
+
+commit 204aa39587dd5c2c16bc4af30433a2acf90903f7
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 17 18:31:17 2012 -0800
+
+    Remove debugging line
+
+commit 6832983c1bb79a92c5a62a66a40bc2e99c447689
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 17 18:29:00 2012 -0800
+
+    Add duplicate counts
+
+commit 8daad3743dde33566b30efb045118e4b54349355
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 17 16:37:12 2012 -0800
+
+    Sort authors/committers by most activity
+
+commit 283a42dbbb43ef150e3130c2e37f3b8f8e9f7d83
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 17 16:18:32 2012 -0800
+
+    Add merge content changes and duplicate detection
+
+commit a82748a768d703687ff4da4c1f35c7ceef1bdd65
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 17 13:02:59 2012 -0800
+
+    Add report for total repository history
+    
+    This report includes author/committer commit stats as well
+    as the long list of most impacting commits
+
+commit f84b8331bbe3f30906b191879b6c730ce8185765
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Tue Jan 17 13:01:11 2012 -0800
+
+    Use "files edited" instead of "files changed"
+
+commit 0d677847940bf46027e884503ea678abadc7704e
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Sun Jan 15 12:19:49 2012 -0800
+
+    Store authors and committers using case insensitive comparisons
+
+commit 325b0ad67d8850d2fb1892892f4307a87afde2cd
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 21 10:25:01 2011 -0800
+
+    Show year in start date
+
+commit 119c0d70408553af5608bd779e6a0c648bfb10b8
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 21 10:13:42 2011 -0800
+
+    Add link to Spring 3.1.0 report
+
+commit 3f5b2dc044e77291a622e0b129a1f7c17f46cc38
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 21 09:53:19 2011 -0800
+
+    Add missing dependencies to POM file
+    
+    Also add standard build plugin configuration
+
+commit 751e99acdb05b709ac1f9ac0829fd7f3aa673c33
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 21 09:18:52 2011 -0800
+
+    Add links to example generated reports
+
+commit c8986e00ef18f5f8745dd77bbb0f08b4f4ab88ab
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 21 09:17:01 2011 -0800
+
+    Add README with example usage
+
+commit 26a5b4d8d08862f1ea50c26bce43b1318ad107a9
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 21 09:15:45 2011 -0800
+
+    Add helper for loading templates
+
+commit c344f2a2724e9ad0fb590387416100924230b690
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 21 09:01:12 2011 -0800
+
+    Add ability to link to commits and comparisons
+
+commit 03b611befe4176483ca8e08c19dfbe6360ec8c30
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 7 16:08:48 2011 -0800
+
+    Swap order of commits used with diff'ing trees
+
+commit 7686120c99824a6a7b5a88557024e14d1b83f14f
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 7 16:04:23 2011 -0800
+
+    Update start/end variables used
+
+commit 551c64914c5b1dd657176eaa78488d2de403ec7c
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Wed Dec 7 12:05:55 2011 -0800
+
+    Update swapped start and end commits
+
+commit a5781714d530e8b26e6eb17225963dc6cc675d3d
+Author: Kevin Sawicki <kevinsawicki@gmail.com>
+Date:   Mon Dec 5 09:30:52 2011 -0800
+
+    Initial commit of release report
