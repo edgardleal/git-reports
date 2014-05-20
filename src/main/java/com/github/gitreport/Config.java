@@ -1,5 +1,7 @@
 /*
- * Copyright (c) 2011 Kevin Sawicki <kevinsawicki@gmail.com>
+ * The MIT License
+ * 
+ * Copyright 2014 Edgard Leal.
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
  * associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -19,34 +21,26 @@
 package com.github.gitreport;
 
 /**
- * Linker for GitHub URLs
+ * 
+ * @author edgardleal
  */
-public class GitHubLinker extends Linker {
+public class Config {
 
-  private String base;
+  private static final String HOME;
 
-  /**
-   * @param base
-   * @return this linker
-   */
-  public GitHubLinker setBase(String base) {
-    if (base == null) {
-      this.base = "/";
-    } else if (!base.endsWith("/")) {
-      this.base = base + '/';
+  static {
+    if (System.getProperty("APP_HOME") != null) {
+      HOME = System.getProperty("APP_HOME");
+    } else if (System.getenv("APP_HOME") != null) {
+      HOME = System.getenv("APP_HOME");
     } else {
-      this.base = base;
+      HOME = ".";
     }
-    return this;
+
   }
 
-  @Override
-  public String getCommitUrl(String sha) {
-    return base + "commit/" + sha;
+  public static String getHOME() {
+    return HOME;
   }
 
-  @Override
-  public String getCompareUrl(String from, String to) {
-    return base + "compare/" + from + "..." + to;
-  }
 }

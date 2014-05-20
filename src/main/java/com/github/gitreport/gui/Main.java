@@ -16,7 +16,6 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 
 import com.github.gitreport.GitHubLinker;
-import com.github.gitreport.ReleaseReport;
 import com.github.gitreport.Templates;
 import com.github.gitreport.TotalHistoryReport;
 import com.github.gitreport.data.RepositoryDTO;
@@ -25,10 +24,14 @@ import com.github.gitreport.data.Setup;
 import com.github.gitreport.gui.language.L10n;
 import com.github.gitreport.util.RegexUtil;
 import com.github.gitreport.util.Str;
+import freemarker.log.Logger;
 
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  * 
@@ -41,14 +44,14 @@ public class Main extends JFrame implements ActionListener {
   private JFileChooser fileDialog = null;
   private JButton btnGenerateReport = null;
   private Panel pnlProjectFind = null;
-  private RepositoryDTO dto = new RepositoryDTO();
+  private final RepositoryDTO dto = new RepositoryDTO();
+  private final Logger logger = Logger.getLogger(getClass().getName());
 
   public Main() {
     try {
       L10n.load();
-    } catch (Exception ex) {
-      ex.printStackTrace();
-
+    } catch (IOException ex) {
+      logger.error("Error loading L10n", ex);
     }
     init();
   }
@@ -69,8 +72,8 @@ public class Main extends JFrame implements ActionListener {
       projectFolder.addButton(L10n.getString("button.find.dir")).setInnerMethod(
           this.getClass().getMethod("onButtonFindClick", new Class[0]), this);
       projectFolder.setRegex(RegexUtil.PATH_PATTERN);
-      new TextFieldLabel(getPnlProjectFind(), L10n.getString(L10n.LABEL_PROJECT_TITLE))
-          .setRegex(".+");
+
+      new TextFieldLabel(getPnlProjectFind(), "projectTitle").setRegex(".+");
       new TextFieldLabel(getPnlProjectFind(), L10n.getString(L10n.LABEL_GITURL))
           .setRegex(RegexUtil.URL_PATTERN);
       new TextFieldLabel(getPnlProjectFind(), L10n.getString("label.report.target"))
@@ -85,11 +88,17 @@ public class Main extends JFrame implements ActionListener {
       new Setup().checkFolders();
       new Setup().checkFiles();
       loadFirst();
-    } catch (Exception ex) {
-      System.err.println("Could not start the program");
-      ex.printStackTrace();
+    } catch (NoSuchMethodException | SecurityException ex) {
+      logger.error("Error inicializing application", ex);
+      logger.info("exiting...");
       System.exit(ERROR);
     }
+  }
+
+  public static Logger getLogger(Class<?> c) {
+    Logger logger = Logger.getLogger(c.getName());
+
+    return logger;
   }
 
   private RepositoryModel assignModel(RepositoryModel model) {
@@ -127,12 +136,20 @@ public class Main extends JFrame implements ActionListener {
   public static void main(String[] args) {
     try {
       UIManager.setLookAndFeel(UIManager.getInstalledLookAndFeels()[1].getClassName());
-    } catch (Exception e) {
-      e.printStackTrace();
+    } catch (ClassNotFoundException ex) {
+      java.util.logging.Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+      java.util.logging.Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+      java.util.logging.Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (UnsupportedLookAndFeelException ex) {
+      java.util.logging.Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
     }
-    new Main();
+
+    Main main = new Main();
   }
 
+  @Override
   public void actionPerformed(ActionEvent a) {
     if (a.getSource() == getBtnGenerateReport()) {
       generateReport();
@@ -180,8 +197,8 @@ public class Main extends JFrame implements ActionListener {
   public void generateReport() {
     try {
       String projectName = getProjectTitle();
-      // TotalHistoryReport report = new TotalHistoryReport();
-      ReleaseReport report = new ReleaseReport();
+      TotalHistoryReport report = new TotalHistoryReport();
+      // ReleaseReport report = new ReleaseReport();
 
       report.setProjectName(projectName);
       report.setProjectVersion(getProjectBranch());
@@ -191,12 +208,11 @@ public class Main extends JFrame implements ActionListener {
       report.setLinker(linker);
 
       Repository repo = new FileRepository(getProjectFolder());
-      report.run(repo, "723ccd17df04f2f97986d871ff7a0ad0c463047b",
-          "a5781714d530e8b26e6eb17225963dc6cc675d3d");
+      report.run(repo, "master");
 
       String projectReleaseString = "release";
       String projectTotalString = "total-history";
-      Template template = Templates.getTemplate(projectReleaseString);
+      Template template = Templates.getTemplate(projectTotalString);
       template.setOutputEncoding("UTF-8");
 
       File out = new File(String.format("reports%1$s%2$s.html", File.separator, projectName));
@@ -205,11 +221,8 @@ public class Main extends JFrame implements ActionListener {
       Desktop.getDesktop().browse(out.toURI());
       dto.insert(assignModel(new RepositoryModel()));
       System.gc();
-    } catch (TemplateException e) {
-      e.printStackTrace();
-      JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
-    } catch (IOException e) {
-      e.printStackTrace();
+    } catch (TemplateException | IOException e) {
+      logger.error("ERROR", e);
       JOptionPane.showMessageDialog(this, e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -229,7 +242,6 @@ public class Main extends JFrame implements ActionListener {
   }
 
   public String getProjectTitle() {
-    return getPnlProjectFind().getTextFieldByName(L10n.getString(L10n.LABEL_PROJECT_TITLE))
-        .getText();
+    return getPnlProjectFind().getTextFieldByName("projectTitle").getText();
   }
 }

@@ -9,4 +9,4 @@ fi
 
 mvn package
 
-cp "$TARGET/git*.jar" "$LIB/"
+cp "$TARGET/git-reports-0.1-SNAPSHOT-sources.jar" "$LIB/"

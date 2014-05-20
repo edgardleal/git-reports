@@ -10,3 +10,4 @@ lib/.classpath
 *.class
 /lib/reports/*
 *.jar
+reports/
